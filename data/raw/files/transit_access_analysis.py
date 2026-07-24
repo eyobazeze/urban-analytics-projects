@@ -26,6 +26,8 @@ from shapely.geometry import Point
 from pathlib import Path
 import warnings
 warnings.filterwarnings("ignore")
+import rasterio
+from rasterio.warp import calculate_default_transform, reproject, Resampling
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).parent
@@ -117,22 +119,14 @@ served_area = buffers_gdf.dissolve().reset_index(drop=True)
 served_area_km2 = served_area.geometry.area.sum() / 1e6
 print(f"  ✓ Total area within 500m of transit: {served_area_km2:.1f} km²")
 
-# ── 5. Generate Synthetic Population Grid ─────────────────────────────────────
-# In a full project, replace this with WorldPop raster data from:
-# https://www.worldpop.org/geodata/summary?id=6097
 # ── 5. Load Real Population Data from WorldPop ────────────────────────────────
 print("\nSTEP 5: Loading real population density from WorldPop raster...")
-
-import rasterio
-from rasterio.warp import calculate_default_transform, reproject, Resampling
 
 PROJECT_ROOT = BASE_DIR.parent.parent.parent
 
 CLIPPED_RASTER_4326 = PROJECT_ROOT / "data" / "processed" / "addis_population_clipped.tif"
 REPROJECTED_RASTER  = PROJECT_ROOT / "data" / "processed" / "addis_population_utm.tif"
 
-print(f"Looking for clipped raster at: {CLIPPED_RASTER_4326}")
-print(f"File exists: {CLIPPED_RASTER_4326.exists()}")
 
 # Reproject the clipped raster from EPSG:4326 to EPSG:32637 (meters) —
 # only needs to run once; skip if the file already exists
