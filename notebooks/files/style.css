@@ -69,6 +69,26 @@ section {
     margin-bottom: 2rem;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #0f172a;
+    color: white;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f5f9;
+}
 /*
     EXERCISE 2.1
     Style the <table> you built in Exercise 1.1:
@@ -97,7 +117,24 @@ section {
 */
 
 /* Your Exercise 2.2 CSS here */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
 
+.stat-card {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.5rem;
+}
 
 
 footer {

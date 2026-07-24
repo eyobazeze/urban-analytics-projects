@@ -17,7 +17,20 @@ function calculateDensity(population, area) {
 }
 
 console.log("Bole density:", calculateDensity(328900, 122.8));
+const tbody = document.querySelector("#data table tbody");
+const newRow = document.createElement("tr");
 
+const nameCell = document.createElement("td");
+nameCell.textContent = "Lideta";
+const popCell = document.createElement("td");
+popCell.textContent = "210,300";
+const areaCell = document.createElement("td");
+areaCell.textContent = "9.4";
+
+newRow.appendChild(nameCell);
+newRow.appendChild(popCell);
+newRow.appendChild(areaCell);
+tbody.appendChild(newRow);
 // ============================================
 // EXERCISE 3.1 — DOM manipulation
 // ============================================
@@ -35,7 +48,14 @@ console.log("Bole density:", calculateDensity(328900, 122.8));
 
 // Your Exercise 3.1 code here
 
+const tbody = document.querySelector("#data table tbody");
+tbody.innerHTML = ""; // clear existing rows
 
+subcityData.forEach((subcity) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${subcity.name}</td><td>${subcity.population.toLocaleString()}</td><td>${subcity.area}</td>`;
+    tbody.appendChild(row);
+});
 // ============================================
 // EXERCISE 3.2 — Loop through data, build content dynamically
 // ============================================
